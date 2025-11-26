@@ -1,0 +1,382 @@
+Started by user Kunal Mittal
+
+Obtained JenkinsFile.groovy from git https://github.com/freakun0025/jenkins-todo-533
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins
+ in /var/jenkins_home/workspace/ToDo-App-Build
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-creds
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/ToDo-App-Build/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/freakun0025/jenkins-todo-533 # timeout=10
+Fetching upstream changes from https://github.com/freakun0025/jenkins-todo-533
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials GitHub Access.
+ > git fetch --tags --force --progress -- https://github.com/freakun0025/jenkins-todo-533 +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 94526edf7f2895ca5bed5be111ede98a3df07382 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 94526edf7f2895ca5bed5be111ede98a3df07382 # timeout=10
+Commit message: "Rename DockerFile.dockerfile to Dockerfile"
+ > git rev-list --no-walk 755abbdbf308809bb3b3d9f01196c93d1b1bad19 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKERHUB_CREDENTIALS or $DOCKERHUB_CREDENTIALS_PSW
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-creds
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/ToDo-App-Build/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/freakun0025/jenkins-todo-533 # timeout=10
+Fetching upstream changes from https://github.com/freakun0025/jenkins-todo-533
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials GitHub Access.
+ > git fetch --tags --force --progress -- https://github.com/freakun0025/jenkins-todo-533 +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 94526edf7f2895ca5bed5be111ede98a3df07382 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 94526edf7f2895ca5bed5be111ede98a3df07382 # timeout=10
+Commit message: "Rename DockerFile.dockerfile to Dockerfile"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Code)
+[Pipeline] echo
+Building the application environment...
+[Pipeline] echo
+Build Setup Complete.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test Code)
+[Pipeline] echo
+Running Tests...
+[Pipeline] sh
++ ls -l app.py test_app.py
+-rw-r--r-- 1 jenkins jenkins 353 Nov 26 15:06 app.py
+-rw-r--r-- 1 jenkins jenkins 412 Nov 26 15:06 test_app.py
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Building Docker Image...
+[Pipeline] sh
++ docker build -t freakun/todo-app:533 .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 108B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.9-slim
+#2 DONE 4.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B 0.0s done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 36.05kB 0.0s done
+#4 DONE 0.1s
+
+#5 [1/3] FROM docker.io/library/python:3.9-slim@sha256:2d97f6910b16bd338d3060f261f53f144965f755599aab1acda1e13cf1731b1b
+#5 resolve docker.io/library/python:3.9-slim@sha256:2d97f6910b16bd338d3060f261f53f144965f755599aab1acda1e13cf1731b1b 0.0s done
+#5 sha256:ea56f685404adf81680322f152d2cfec62115b30dda481c2c450078315beb508 0B / 251B 0.2s
+#5 sha256:b3ec39b36ae8c03a3e09854de4ec4aa08381dfed84a9daa075048c2e3df3881d 0B / 1.29MB 0.2s
+#5 sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08 0B / 13.88MB 0.2s
+#5 sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d 0B / 29.78MB 0.2s
+#5 sha256:ea56f685404adf81680322f152d2cfec62115b30dda481c2c450078315beb508 251B / 251B 0.6s done
+#5 sha256:b3ec39b36ae8c03a3e09854de4ec4aa08381dfed84a9daa075048c2e3df3881d 1.29MB / 1.29MB 1.2s
+#5 sha256:b3ec39b36ae8c03a3e09854de4ec4aa08381dfed84a9daa075048c2e3df3881d 1.29MB / 1.29MB 1.2s done
+#5 sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08 1.05MB / 13.88MB 1.5s
+#5 sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08 2.10MB / 13.88MB 1.7s
+#5 sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08 3.15MB / 13.88MB 1.8s
+#5 sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08 4.19MB / 13.88MB 2.1s
+#5 sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d 2.10MB / 29.78MB 2.0s
+#5 sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08 5.24MB / 13.88MB 2.3s
+#5 sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d 4.19MB / 29.78MB 2.3s
+#5 sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08 6.29MB / 13.88MB 2.6s
+#5 sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08 7.34MB / 13.88MB 2.7s
+#5 sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d 6.29MB / 29.78MB 2.6s
+#5 sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08 8.39MB / 13.88MB 3.0s
+#5 sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d 8.39MB / 29.78MB 2.9s
+#5 sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08 9.44MB / 13.88MB 3.2s
+#5 sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d 10.49MB / 29.78MB 3.2s
+#5 sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08 10.49MB / 13.88MB 3.5s
+#5 sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d 12.58MB / 29.78MB 3.5s
+#5 sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08 11.53MB / 13.88MB 3.8s
+#5 sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08 12.58MB / 13.88MB 3.9s
+#5 sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d 14.68MB / 29.78MB 3.8s
+#5 sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08 13.88MB / 13.88MB 4.2s
+#5 sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d 16.78MB / 29.78MB 4.1s
+#5 sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08 13.88MB / 13.88MB 4.2s done
+#5 sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d 18.87MB / 29.78MB 4.4s
+#5 sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d 20.97MB / 29.78MB 4.7s
+#5 sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d 23.07MB / 29.78MB 4.8s
+#5 sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d 26.21MB / 29.78MB 5.1s
+#5 sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d 28.31MB / 29.78MB 5.4s
+#5 sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d 29.78MB / 29.78MB 5.5s done
+#5 extracting sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d
+#5 extracting sha256:38513bd7256313495cdd83b3b0915a633cfa475dc2a07072ab2c8d191020ca5d 0.8s done
+#5 extracting sha256:b3ec39b36ae8c03a3e09854de4ec4aa08381dfed84a9daa075048c2e3df3881d
+#5 extracting sha256:b3ec39b36ae8c03a3e09854de4ec4aa08381dfed84a9daa075048c2e3df3881d 0.1s done
+#5 extracting sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08
+#5 extracting sha256:fc74430849022d13b0d44b8969a953f842f59c6e9d1a0c2c83d710affa286c08 0.5s done
+#5 DONE 7.0s
+
+#5 [1/3] FROM docker.io/library/python:3.9-slim@sha256:2d97f6910b16bd338d3060f261f53f144965f755599aab1acda1e13cf1731b1b
+#5 extracting sha256:ea56f685404adf81680322f152d2cfec62115b30dda481c2c450078315beb508 0.0s done
+#5 DONE 7.1s
+
+#6 [2/3] WORKDIR /app
+#6 DONE 0.2s
+
+#7 [3/3] COPY . /app
+#7 DONE 0.1s
+
+#8 exporting to image
+#8 exporting layers 0.1s done
+#8 exporting manifest sha256:7c05e97af8806a56670bf15626c6416e26b536563ac51cb5db1541381777ccb6 0.0s done
+#8 exporting config sha256:6596673ec69cf0a99bb9c0c6594a8b24f66b08a20f1e5f681ccbd77a6c973ab4 0.0s done
+#8 exporting attestation manifest sha256:84b7f61e36c0fe985ebc63081637b1e9ab94da3969125ecf11ce7105a21a84a7 0.0s done
+#8 exporting manifest list sha256:76d96ccc613db85b514c77872061ca933d77e411eadab68c79cd772642086e02 0.0s done
+#8 naming to docker.io/freakun/todo-app:533 done
+#8 unpacking to docker.io/freakun/todo-app:533 0.1s done
+#8 DONE 0.3s
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push to DockerHub)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Pushing to DockerHub...
+[Pipeline] sh
++ echo ****
++ docker login -u freakun --password-stdin
+WARNING! Your password will be stored unencrypted in /var/jenkins_home/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[Pipeline] sh
++ docker push freakun/todo-app:533
+The push refers to repository [docker.io/freakun/todo-app]
+ea56f685404a: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+fc7443084902: Waiting
+4dc8ba877bc7: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+38513bd72563: Waiting
+6551c82b1336: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+38513bd72563: Waiting
+10282f146780: Waiting
+b3ec39b36ae8: Waiting
+ea56f685404a: Waiting
+38513bd72563: Waiting
+4dc8ba877bc7: Pushed
+6551c82b1336: Pushed
+ea56f685404a: Pushed
+10282f146780: Pushed
+b3ec39b36ae8: Pushed
+fc7443084902: Pushed
+38513bd72563: Pushed
+533: digest: sha256:76d96ccc613db85b514c77872061ca933d77e411eadab68c79cd772642086e02 size: 856
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
